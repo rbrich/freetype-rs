@@ -176,7 +176,7 @@ impl<'a> ContourIterator<'a> {
             outline: outline,
             contour_start: 0,
             contour_end_idx: outline.contours,
-            last_end_idx: outline.contours.offset(outline.n_contours as isize - 1)
+            last_end_idx: outline.contours.offset(outline.n_contours as isize)
         }
     }
 }
@@ -185,7 +185,7 @@ impl<'a> Iterator for ContourIterator<'a> {
     type Item = CurveIterator<'a>;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.contour_end_idx > self.last_end_idx {
+        if self.contour_end_idx >= self.last_end_idx {
             None
         } else {
             unsafe {
